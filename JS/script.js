@@ -1,7 +1,11 @@
 const dimension = 150
 const imgStart = 1 + Math.floor(Math.random() * 100)
 const imgs = []
-
+let firstCard = null
+let secondCard = null
+let lockBoard = false
+let moves = 0
+let matchedCount = 0
 for (let i = 0; i < 8; i++) {
     imgs.push(`https://picsum.photos/${dimension}?random=${imgStart + i}`)
 }
@@ -31,6 +35,11 @@ function shuffle(array) {
 function initGame() {
     board.innerHTML = "";
     shuffle(cards);
+    firstCard = null
+    secondCard = null
+    lockBoard = false
+    moves = 0
+    matchedCount = 0
 
     cards.forEach((imgUrl) => {
         const card = document.createElement("div");
@@ -40,7 +49,9 @@ function initGame() {
         card.dataset.value = imgUrl;
         card.style.setProperty("--card-image", `url("${imgUrl}")`);
         board.appendChild(card);
+        card.addEventListener('click', () => handleCardClick(card));
     });
+
 }
 
 initGame();
