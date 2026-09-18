@@ -10,6 +10,7 @@ for (let i = 0; i < 8; i++) {
     imgs.push(`https://picsum.photos/${dimension}?random=${imgStart + i}`)
 }
 
+
 let cards = [...imgs, ...imgs]
 const board = document.querySelector("#board")
 
@@ -40,6 +41,7 @@ function initGame() {
     lockBoard = false
     moves = 0
     matchedCount = 0
+    document.getElementById("moves").innerHTML = "moves :" + moves;
 
     cards.forEach((imgUrl) => {
         const card = document.createElement("div");
@@ -47,11 +49,57 @@ function initGame() {
         card.setAttribute("role", "button");
         card.setAttribute("tabindex", "0");
         card.dataset.value = imgUrl;
-        card.style.setProperty("--card-image", `url("${imgUrl}")`);
         board.appendChild(card);
-        card.addEventListener('click', () => handleCardClick(card));
+        
+        card.addEventListener("click", () => handleCardClick(card));
+
     });
 
+}
+
+
+function handleCardClick(card) {
+    if (lockBoard || card.classList.contains("matched") || card === firstCard) {
+        return;
+    }
+
+    card.style.setProperty("--card-image", `url("${card.dataset.value}")`);
+
+    if (firstCard === null) {
+        firstCard = card;
+        return;
+    }
+
+    secondCard = card;
+    lockBoard = true;
+    moves += 1;
+    document.getElementById("moves").innerHTML = "moves :" + moves;
+    checkMatch();
+}
+
+function checkMatch() {
+    if (firstCard.dataset.value == secondCard.dataset.value) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        resetTurn();
+        return;
+    }
+    setTimeout(() => {
+        firstCard.style.setProperty("--card-image", `url("${null}")`);
+        secondCard.style.setProperty("--card-image", `url("${null}")`);
+        resetTurn(); // On débloque le plateau pour le coup suivant
+    }, 800);
+
+}
+
+function resetTurn() {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = null;
+}
+
+function reset(){
+    initGame();
 }
 
 initGame();

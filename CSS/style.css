@@ -21,7 +21,7 @@ body {
 .card {
     width: 150px;
     height: 150px;
+    background-color: cornsilk;
     background-image: var(--card-image);
-    background-size: cover;
-    background-position: center;
+    cursor: pointer;
 }
