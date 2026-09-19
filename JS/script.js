@@ -6,6 +6,10 @@ let secondCard = null
 let lockBoard = false
 let moves = 0
 let matchedCount = 0
+
+let secondes = 0;
+let timerInterval = null;
+
 for (let i = 0; i < 8; i++) {
     imgs.push(`https://picsum.photos/id/${imgStart + i}/${dimension}/${dimension}.jpg`)
 }
@@ -34,6 +38,7 @@ function shuffle(array) {
 
 
 function initGame() {
+    stopTimer();
     board.innerHTML = "";
     shuffle(cards);
     firstCard = null
@@ -41,7 +46,10 @@ function initGame() {
     lockBoard = false
     moves = 0
     matchedCount = 0
+    secondes = 0;
     document.getElementById("moves").innerHTML = "moves :" + moves;
+    document.getElementById("temps").innerHTML = `Temps : ${formatTime(secondes)}`;
+    document.getElementById("win").innerHTML = "";
 
     cards.forEach((imgUrl) => {
         const card = document.createElement("div");
@@ -54,7 +62,7 @@ function initGame() {
         card.addEventListener("click", () => handleCardClick(card));
 
     });
-
+    startTimer();
 }
 
 
@@ -75,12 +83,14 @@ function handleCardClick(card) {
     moves += 1;
     document.getElementById("moves").innerHTML = "moves :" + moves;
     checkMatch();
+    checkVictory();
 }
 
 function checkMatch() {
     if (firstCard.dataset.value == secondCard.dataset.value) {
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
+        matchedCount += 2;
         resetTurn();
         return;
     }
@@ -95,11 +105,36 @@ function checkMatch() {
 function resetTurn() {
     firstCard = null;
     secondCard = null;
-    lockBoard = null;
+    lockBoard = false;
 }
 
 function reset() {
     initGame();
+}
+
+function formatTime(sec) {
+    let min = String(Math.floor(sec / 60)).padStart(2, '0');
+    let sec2 = String(Math.floor(sec % 60)).padStart(2, '0');
+    return `${min}:${sec2}`;
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        secondes++;
+        document.getElementById("temps").innerHTML = `Temps : ${formatTime(secondes)}`;
+    }, 1000);
+
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+}
+
+function checkVictory(){
+    if (matchedCount == cards.length){
+        stopTimer();
+        document.getElementById("win").innerHTML = "GG ";
+    }
 }
 
 initGame();
