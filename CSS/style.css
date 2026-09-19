@@ -22,6 +22,5 @@ body {
     width: 150px;
     height: 150px;
     background-color: cornsilk;
-    background-image: var(--card-image);
     cursor: pointer;
 }

@@ -7,7 +7,7 @@ let lockBoard = false
 let moves = 0
 let matchedCount = 0
 for (let i = 0; i < 8; i++) {
-    imgs.push(`https://picsum.photos/${dimension}?random=${imgStart + i}`)
+    imgs.push(`https://picsum.photos/id/${imgStart + i}/${dimension}/${dimension}.jpg`)
 }
 
 
@@ -50,7 +50,7 @@ function initGame() {
         card.setAttribute("tabindex", "0");
         card.dataset.value = imgUrl;
         board.appendChild(card);
-        
+
         card.addEventListener("click", () => handleCardClick(card));
 
     });
@@ -63,7 +63,7 @@ function handleCardClick(card) {
         return;
     }
 
-    card.style.setProperty("--card-image", `url("${card.dataset.value}")`);
+    card.innerHTML = `<img src="${card.dataset.value}">`;
 
     if (firstCard === null) {
         firstCard = card;
@@ -85,8 +85,8 @@ function checkMatch() {
         return;
     }
     setTimeout(() => {
-        firstCard.style.setProperty("--card-image", `url("${null}")`);
-        secondCard.style.setProperty("--card-image", `url("${null}")`);
+        firstCard.innerHTML = "";
+        secondCard.innerHTML = "";
         resetTurn(); // On débloque le plateau pour le coup suivant
     }, 800);
 
@@ -98,9 +98,8 @@ function resetTurn() {
     lockBoard = null;
 }
 
-function reset(){
+function reset() {
     initGame();
 }
 
 initGame();
-
