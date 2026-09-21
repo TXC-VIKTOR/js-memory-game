@@ -11,7 +11,7 @@ let secondes = 0;
 let timerInterval = null;
 
 for (let i = 0; i < 8; i++) {
-    imgs.push(`https://picsum.photos/id/${imgStart + i}/${dimension}/${dimension}.jpg`)
+        imgs.push(`https://picsum.photos/${dimension}?random=${imgStart + i}`)
 }
 
 
