@@ -11,6 +11,23 @@ body {
     margin-top: 2rem;
 }
 
+.game-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.game-info p {
+    margin: 0;
+    min-width: 110px;
+    padding: 0.6rem 1rem;
+    border: solid #dee2e6;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+}
+
 .board {
     display: grid;
     width: min(92vw, 650px);
@@ -21,7 +38,7 @@ body {
 
 .card {
     aspect-ratio: 1;
-    background-color: cornsilk;
+    background-color: cornsilk !important;
     cursor: pointer;
     overflow: hidden;
 }

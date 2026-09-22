@@ -47,7 +47,7 @@ function initGame() {
     moves = 0
     matchedCount = 0
     secondes = 0;
-    document.getElementById("moves").innerHTML = "moves :" + moves;
+    document.getElementById("moves").innerHTML = "Moves :" + moves;
     document.getElementById("temps").innerHTML = `Temps : ${formatTime(secondes)}`;
     document.getElementById("win").innerHTML = "";
     cards.forEach((imgUrl, index) => {
@@ -79,7 +79,7 @@ function handleCardClick(card) {
     secondCard = card;
     lockBoard = true;
     moves += 1;
-    document.getElementById("moves").innerHTML = "moves :" + moves;
+    document.getElementById("moves").innerHTML = "Moves :" + moves;
     checkMatch();
     checkVictory();
 }
@@ -108,6 +108,7 @@ function resetTurn() {
 
 function reset() {
     initGame();
+    document.getElementById("start/reset").innerHTML = "Restart"
 }
 
 function formatTime(sec) {
@@ -134,5 +135,3 @@ function checkVictory(){
         document.getElementById("win").innerHTML = "GG ";
     }
 }
-
-initGame();
