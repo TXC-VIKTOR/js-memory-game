@@ -50,17 +50,15 @@ function initGame() {
     document.getElementById("moves").innerHTML = "moves :" + moves;
     document.getElementById("temps").innerHTML = `Temps : ${formatTime(secondes)}`;
     document.getElementById("win").innerHTML = "";
-
-    cards.forEach((imgUrl) => {
+    cards.forEach((imgUrl, index) => {
         const card = document.createElement("div");
         card.classList.add("card");
         card.setAttribute("role", "button");
         card.setAttribute("tabindex", "0");
         card.dataset.value = imgUrl;
+        card.dataset.index = index + 1;
         board.appendChild(card);
-
         card.addEventListener("click", () => handleCardClick(card));
-
     });
     startTimer();
 }
@@ -71,7 +69,7 @@ function handleCardClick(card) {
         return;
     }
 
-    card.innerHTML = `<img src="${card.dataset.value}">`;
+    card.innerHTML = `<img src="${card.dataset.value}" alt="img ${card.dataset.index}">`;
 
     if (firstCard === null) {
         firstCard = card;
