@@ -22,10 +22,11 @@ body {
 .card {
     aspect-ratio: 1;
     background-color: cornsilk;
-    cursor: pointer;    
+    cursor: pointer;
+    overflow: hidden;
 }
 
-.card img{
+.card img {
     width: 100%;
     height: 100%;
 }
